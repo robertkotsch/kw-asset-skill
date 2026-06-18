@@ -45,12 +45,19 @@ The Claude skill is self-contained, so just copy it into your user config:
 
 ```powershell
 # Windows (PowerShell)
+# Ensure the target folders exist first (-Force is a no-op if they already do)
+New-Item -ItemType Directory -Force "$env:USERPROFILE\.claude\skills"   | Out-Null
+New-Item -ItemType Directory -Force "$env:USERPROFILE\.claude\commands" | Out-Null
+
 Copy-Item -Recurse -Force ".\.claude\skills\knowledgeworker-asset-setup" "$env:USERPROFILE\.claude\skills\"
 Copy-Item -Force ".\.claude\commands\kw-asset-setup.md" "$env:USERPROFILE\.claude\commands\"
 ```
 
 ```bash
 # macOS / Linux
+# Ensure the target folders exist first (-p is a no-op if they already do)
+mkdir -p ~/.claude/skills ~/.claude/commands
+
 cp -r ./.claude/skills/knowledgeworker-asset-setup ~/.claude/skills/
 cp    ./.claude/commands/kw-asset-setup.md          ~/.claude/commands/
 ```
