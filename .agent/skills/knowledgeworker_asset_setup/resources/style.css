@@ -1,0 +1,46 @@
+/* 
+ * KnowledgeWorker Design Tokens
+ * 
+ * IMPORTANT: Tokens are PROVIDED by the API at runtime.
+ * STRICT RULE: Do NOT define fallback values here (e.g., do NOT use var(--kw-*, #abc)).
+ * Use ONLY var(--kw-*) properties that get injected by the API.
+ */
+
+/* Base reset */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html,
+body {
+  height: 100%;
+  font-family: var(--kw-text-font-family);
+  font-size: var(--kw-text-font-size);
+  color: var(--kw-text-color);
+  background-color: var(--kw-background-color);
+}
+
+#app {
+  min-height: 100%;
+  padding: 1rem;
+}
+
+/* Action elements use the LMS action color */
+button,
+.action {
+  background-color: var(--kw-action-color);
+  color: var(--kw-action-text-color);
+  border: none;
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+  border-radius: 4px;
+}
+
+button:hover,
+.action:hover {
+  opacity: 0.9;
+}

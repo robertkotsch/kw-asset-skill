@@ -1,0 +1,3 @@
+{
+  "_comment": "Default-language user-facing text. To localize, copy to labels.<locale>.json with identical keys (see docs/lang-test.md). Labels are inserted via textContent (plain); use an *_html key suffix only for labels that need inline markup, and escape any {{placeholder}} in those. For soft hyphens prefer CSS hyphens:auto; for manual breaks use the raw U+00AD character, not &shy;."
+}

@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Language Test</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --accent: #334155;
+      --bg: #f5f5f4;
+      --card-bg: #ffffff;
+      --text: #1c1917;
+      --text-muted: #78716c;
+      --border: rgba(0, 0, 0, 0.12);
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: 'Outfit', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      padding: 2.5rem 2rem;
+    }
+    header { display: flex; align-items: baseline; gap: 1.5rem; margin-bottom: 2rem; }
+    header h1 {
+      font-size: 2rem; font-weight: 700; color: var(--text);
+    }
+    header a { color: var(--text-muted); text-decoration: none; font-size: .875rem; transition: color .2s; }
+    header a:hover { color: var(--text); }
+    .tabs { display: flex; gap: .5rem; margin-bottom: 1.5rem; flex-wrap: wrap; }
+    .tab {
+      padding: .5rem 1.1rem; border-radius: 9999px; border: 1px solid var(--border);
+      background: var(--card-bg); color: var(--text-muted);
+      font-family: inherit; font-size: .875rem; font-weight: 500; cursor: pointer; transition: all .2s;
+    }
+    .tab:hover { border-color: rgba(0,0,0,.3); color: var(--text); }
+    .tab.active { background: var(--accent); border-color: transparent; color: #fff; }
+    .en-ref { margin-bottom: 1rem; font-size: .8125rem; color: var(--text-muted); }
+    .en-ref a { color: var(--accent); text-decoration: none; font-weight: 500; }
+    .en-ref a:hover { text-decoration: underline; }
+    .grid { display: grid; gap: 1rem; }
+    .col-header {
+      font-size: .9375rem; font-weight: 600; margin-bottom: .5rem; padding-left: .25rem;
+      display: flex; align-items: center; gap: .5rem;
+    }
+    .lang-badge {
+      display: inline-block; padding: .15rem .5rem; border-radius: 4px;
+      font-size: .7rem; font-weight: 700; letter-spacing: .06em; text-transform: uppercase;
+      background: rgba(0,0,0,.06); color: var(--text-muted);
+    }
+    .iframe-wrapper {
+      border-radius: 16px; overflow: hidden;
+      border: 1px solid var(--border); background: #fff;
+    }
+    iframe { width: 100%; height: 700px; border: none; display: block; }
+    .iframe-wrapper.loading {
+      display: flex; align-items: center; justify-content: center;
+      height: 700px; background: var(--card-bg);
+    }
+    .loader {
+      width: 36px; height: 36px;
+      border: 3px solid rgba(0,0,0,.12); border-top-color: var(--accent);
+      border-radius: 50%; animation: spin .8s linear infinite;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>&#127760; Language Test</h1>
+    <a href="/">&#8592; Dev Hub</a>
+  </header>
+
+  <div class="tabs" id="tabs"></div>
+  <div class="en-ref" id="en-ref"></div>
+  <div class="grid" id="grid"></div>
+
+  <script>
+    // ── CONFIGURE THESE FOR YOUR PROJECT ──────────────────────────────────────
+    const MODULES = [
+      // { id: 'game_1', label: 'CIA Triad',   url: (lang) => `/games/game_1/?lang=${lang}` },
+      // { id: 'game_2', label: 'Doc Sorting',  url: (lang) => `/games/game_2/?lang=${lang}` },
+      // Add one entry per module
+    ];
+
+    const LANGS = [
+      // { code: 'de', label: 'Deutsch',       script: 'DE' },
+      // { code: 'zh', label: '中文 (简体)',    script: 'ZH' },
+      // { code: 'ru', label: 'Русский',        script: 'RU' },
+    ];
+
+    const DEFAULT_LANG_URL = (moduleId) => `/${moduleId}/`;
+    // ── END CONFIG ─────────────────────────────────────────────────────────────
+
+    let active = MODULES[0]?.id;
+
+    function buildGrid() {
+      const grid = document.getElementById('grid');
+      grid.style.gridTemplateColumns = `repeat(${LANGS.length}, 1fr)`;
+      grid.innerHTML = '';
+      LANGS.forEach(lang => {
+        const col = document.createElement('div');
+        col.innerHTML = `
+          <div class="col-header">
+            ${lang.label}
+            <span class="lang-badge">${lang.script}</span>
+          </div>
+          <div class="iframe-wrapper loading" id="wrap-${lang.code}"><div class="loader"></div></div>
+        `;
+        grid.appendChild(col);
+      });
+    }
+
+    function loadIframes() {
+      const mod = MODULES.find(m => m.id === active);
+      LANGS.forEach(lang => {
+        const wrap = document.getElementById(`wrap-${lang.code}`);
+        wrap.classList.remove('loading');
+        wrap.innerHTML = '';
+        const iframe = document.createElement('iframe');
+        iframe.src = mod.url(lang.code);
+        iframe.title = `${active} — ${lang.code}`;
+        wrap.appendChild(iframe);
+      });
+      const defaultUrl = DEFAULT_LANG_URL(active);
+      document.getElementById('en-ref').innerHTML =
+        `EN baseline: <a href="${defaultUrl}" target="_blank">${defaultUrl}</a>`;
+    }
+
+    function renderTabs() {
+      const container = document.getElementById('tabs');
+      container.innerHTML = '';
+      MODULES.forEach(mod => {
+        const btn = document.createElement('button');
+        btn.className = 'tab' + (mod.id === active ? ' active' : '');
+        btn.textContent = mod.label;
+        btn.addEventListener('click', () => { active = mod.id; renderTabs(); loadIframes(); });
+        container.appendChild(btn);
+      });
+    }
+
+    buildGrid();
+    renderTabs();
+    loadIframes();
+  </script>
+</body>
+</html>
