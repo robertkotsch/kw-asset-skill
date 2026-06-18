@@ -1,5 +1,7 @@
 # Knowledgeworker HTML5 Asset Playbook
 
+![Knowledgeworker HTML5 Asset Playbook — functions and benefits](./infographic.png)
+
 **Version**: 1.0.0
 **Stack**: `Vite` + `Vanilla JS` + `Knowledgeworker API`
 
