@@ -1,5 +1,9 @@
 # Knowledgeworker HTML5 Asset Playbook
 
+> **Knowledgeworker** (a.k.a. **Knowledge Worker** / **chemmedia Knowledgeworker Create**)
+> HTML5 embedded learning asset toolkit — a Claude Code & Antigravity skill plus manual
+> playbook for building interactive e-learning content for the Knowledgeworker LMS.
+
 ![Knowledgeworker HTML5 Asset Playbook — functions and benefits](./infographic.png)
 
 **Version**: 1.0.0
@@ -120,3 +124,24 @@ Once the foundation is set up (server running at `http://localhost:8080`), proce
 ---
 
 > **Note**: Always check `Playbooks/KW_ASSET_SETUP.md` for the latest API version and security practices before starting.
+
+---
+
+## 🔎 Keywords & Discoverability
+
+Searching for this on GitHub? It's the same thing under any of these names:
+
+**Knowledgeworker** · Knowledge Worker · chemmedia Knowledgeworker · Knowledgeworker Create ·
+Knowledgeworker LMS · `knowledgeworker-embedded-asset-api` · HTML5 learning asset ·
+embedded asset · e-learning · eLearning · WBT · authoring tool · interactive content ·
+LMS content · SCORM · xAPI · Vite · Vanilla JS · Claude Code skill · Antigravity skill ·
+learning asset playbook · KW asset
+
+> **Tip — make this repo findable.** GitHub ranks **repository topics** and the **description**
+> far above README text in search. To surface this repo when someone searches `knowledgeworker`,
+> set them in the repo (Settings → top of the repo page → ⚙️ next to *About*):
+>
+> - **Description:** `Knowledgeworker HTML5 embedded learning asset toolkit — Claude Code / Antigravity skill + playbook (Vite + Vanilla JS).`
+> - **Topics:** `knowledgeworker`, `knowledge-worker`, `chemmedia`, `elearning`, `e-learning`,
+>   `lms`, `html5`, `learning-asset`, `embedded-asset`, `scorm`, `xapi`, `authoring`,
+>   `claude-code`, `claude-skill`, `vite`, `vanilla-js`
