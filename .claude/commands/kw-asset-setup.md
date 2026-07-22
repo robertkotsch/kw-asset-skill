@@ -40,7 +40,7 @@ verbatim** into the target path. Obey the skill's hard rules (no hardcoded color
 2. Install deps, then commit the lockfile:
    ```bash
    pnpm add -D vite archiver
-   pnpm add github:chemmedia/knowledgeworker-embedded-asset-api#v4.0.0
+   pnpm add github:chemmedia/knowledgeworker-embedded-asset-api#v.4.1.0
    ```
 3. `pnpm audit` — review before proceeding.
 4. Copy `resources/index.html` → `index.html` (set `lang` to the asset's language).

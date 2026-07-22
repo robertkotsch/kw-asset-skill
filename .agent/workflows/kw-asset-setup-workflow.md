@@ -71,13 +71,18 @@ Then install all dependencies:
 
 ```bash
 pnpm add -D vite archiver
-pnpm add github:chemmedia/knowledgeworker-embedded-asset-api#v4.0.0
+pnpm add github:chemmedia/knowledgeworker-embedded-asset-api#v.4.1.0
 ```
 
 > [!IMPORTANT]
-> **Pin to the verified tag** — always use `#<tag>` (e.g., `#v4.0.0`) when installing from GitHub.
+> **Pin to the verified tag** — always use `#<tag>` (e.g., `#v.4.1.0`) when installing from GitHub.
 > A floating reference (no `#ref`) silently tracks `HEAD` and is vulnerable to supply chain attacks.
 > After installing, **commit `pnpm-lock.yaml`** to lock the resolved SHA for all future installs.
+
+> [!NOTE]
+> **Upstream tag quirk.** 4.1.0 is tagged `v.4.1.0` (stray dot after `v`), not `v4.1.0`.
+> If chemmedia later corrects the tag, pin the commit instead:
+> `#2cd242908418902f4534ab3d0356df5da2a7c69f`.
 
 // turbo
 

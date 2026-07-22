@@ -36,7 +36,10 @@ Always install with a specific tag — never a floating reference:
 
 ```bash
 # ✅ Pinned (safe)
-pnpm add github:chemmedia/knowledgeworker-embedded-asset-api#v4.0.0
+pnpm add github:chemmedia/knowledgeworker-embedded-asset-api#v.4.1.0
+
+# ✅ Pinned to commit SHA (survives an upstream re-tag; 4.1.0's tag is mistyped as `v.4.1.0`)
+pnpm add github:chemmedia/knowledgeworker-embedded-asset-api#2cd242908418902f4534ab3d0356df5da2a7c69f
 
 # ❌ Floating (tracks HEAD silently)
 pnpm add github:chemmedia/knowledgeworker-embedded-asset-api

@@ -37,6 +37,7 @@ import {
   setSharedData, // Share state across assets
   completed, // (Medium only) Mark asset as completed
   answered, // (Question only) Submit answer: answered(answer, passed, score)
+  navigate, // Trigger internal course navigation (v4.1.0+)
 } from "knowledgeworker-embedded-asset-api";
 ```
 
@@ -156,4 +157,19 @@ onSharedDataChanged((sharedData) => {
 
 // Share state with other assets (must be a string)
 setSharedData(JSON.stringify({ userChoice: "optionA" }));
+```
+
+### Internal Course Navigation (v4.1.0+)
+
+Request the runtime to move to another location in the current course. The `target`
+is a routing path with a leading `#`.
+
+```javascript
+import { navigate } from "knowledgeworker-embedded-asset-api";
+
+// Path to a chapter → content → section
+navigate("#/1-my-chapter/1-my-content/1-my-section");
+
+// Or jump straight to a content element by its UID
+navigate("#/goto=<uid>");
 ```

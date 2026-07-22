@@ -28,7 +28,7 @@ pnpm init
 Install the dependencies (drop d3/gsap/pixi.js if a given game doesn't need them):
 ```bash
 # Core API
-pnpm add github:chemmedia/knowledgeworker-embedded-asset-api#v4.0.0
+pnpm add github:chemmedia/knowledgeworker-embedded-asset-api#v.4.1.0
 pnpm add d3 gsap pixi.js resize-observer-polyfill
 
 # Dev Dependencies

@@ -80,10 +80,11 @@ Never install from a floating reference (no `#ref` = tracks `HEAD`, which can ch
 
 ```bash
 # ✅ Pin to a specific tag (preferred)
-pnpm add github:chemmedia/knowledgeworker-embedded-asset-api#v4.0.0
+pnpm add github:chemmedia/knowledgeworker-embedded-asset-api#v.4.1.0
 
 # ✅ Pin to a specific commit SHA (most secure — tags can be force-pushed)
-pnpm add github:chemmedia/knowledgeworker-embedded-asset-api#abc1234def5678
+# NOTE: 4.1.0's tag is mistyped upstream as `v.4.1.0`; the SHA below is the robust alternative.
+pnpm add github:chemmedia/knowledgeworker-embedded-asset-api#2cd242908418902f4534ab3d0356df5da2a7c69f
 
 # ❌ Avoid — resolves to HEAD of default branch at install time
 pnpm add github:chemmedia/knowledgeworker-embedded-asset-api

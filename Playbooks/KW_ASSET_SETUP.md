@@ -7,7 +7,7 @@
 > 1. Check the latest tag at `https://github.com/chemmedia/knowledgeworker-embedded-asset-api/tags` using `read_url_content` or a browser tool.
 > 2. Compare the latest tag with the "Verified" version below.
 > 3. If a newer version exists (e.g., `v5.0.0`), you **MUST** update this document and the `Verified` note before proceeding.
-> 4. **Verified for API v4.x and UI v3.x** (Last check: 2026-02-08)
+> 4. **Verified for API v4.1.0 and UI v3.x** (Last check: 2026-07-22)
 
 Lean playbook for the **manual setup path** (README "Option B"). It carries only the
 decisions and rules that make a build correct; all code lives in copyable template
@@ -65,8 +65,13 @@ capability matrix, see **[KW_ASSET_TYPES.md](./KW_ASSET_TYPES.md)**.
 > dynamic subdirectories, so the default absolute base (`/`) breaks asset loading.
 
 > [!IMPORTANT]
-> **Pin the API version.** Always install with `#<tag>` (e.g. `#v4.0.0`). A floating
+> **Pin the API version.** Always install with `#<tag>` (e.g. `#v.4.1.0`). A floating
 > reference silently tracks `HEAD` (supply-chain risk). Commit `pnpm-lock.yaml` afterward.
+
+> [!NOTE]
+> **Upstream tag quirk.** 4.1.0 is tagged `v.4.1.0` (stray dot after `v`), not `v4.1.0` —
+> the pin above uses the real tag name. For a pin that survives an upstream re-tag, use the
+> commit SHA instead: `#2cd242908418902f4534ab3d0356df5da2a7c69f`.
 
 > [!WARNING]
 > **Never run `pnpm create vite . --overwrite`** in a non-empty directory — it deletes
@@ -95,7 +100,7 @@ Each step copies a file from `resources/` or runs a command. No code is reproduc
 2. **Install deps** — then commit `pnpm-lock.yaml`:
    ```bash
    pnpm add -D vite archiver
-   pnpm add github:chemmedia/knowledgeworker-embedded-asset-api#v4.0.0
+   pnpm add github:chemmedia/knowledgeworker-embedded-asset-api#v.4.1.0
    ```
 3. **Audit** — `pnpm audit` (CI: `pnpm audit --audit-level=high`).
 4. **`index.html`** — copy `resources/index.html` (set `lang` to your asset's language).

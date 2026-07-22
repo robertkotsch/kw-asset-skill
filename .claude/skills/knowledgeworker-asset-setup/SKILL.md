@@ -11,7 +11,7 @@ scaffold a new asset, run the `/kw-asset-setup` command — it orchestrates the 
 > [!IMPORTANT]
 > **MANDATORY PRE-CHECK.** Before scaffolding, verify the API version:
 > 1. Read the latest tag at `https://github.com/chemmedia/knowledgeworker-embedded-asset-api/tags`.
-> 2. Compare with the verified version: **API v4.x / UI v3.x** (last check: 2026-02-08).
+> 2. Compare with the verified version: **API v4.1.0 / UI v3.x** (last check: 2026-07-22).
 > 3. If a newer major exists, update the version here and in the command before proceeding.
 
 ## Stack (non-negotiable)
@@ -40,7 +40,7 @@ or Advanced Question?"* **Default to `medium`.** Then copy the matching template
 - **NO HARDCODED COLORS.** No Hex/RGB/HSL/named colors, no CSS-variable fallbacks. Use only
   `var(--kw-*)` tokens injected at runtime. Sole exception: a brand-critical element the user explicitly requests.
 - **`base: "./"`** in `vite.config.js` — absolute base breaks embedded loading.
-- **Pin the API tag** (`#v4.0.0`); commit `pnpm-lock.yaml`. Never install from a floating ref.
+- **Pin the API tag** (`#v.4.1.0`, or commit `#2cd2429…` if the mistyped tag is ever fixed); commit `pnpm-lock.yaml`. Never install from a floating ref.
 - **Never** run `pnpm create vite . --overwrite` in a non-empty dir — it deletes files.
 - **Copy templates verbatim** from `resources/`. Do not retype or regenerate them.
 - **Question types:** never show feedback/solution or lock the UI yourself — wait for the LMS callback.
@@ -101,7 +101,7 @@ knowledgeworker-asset-setup/
 
 | Issue | Cause | Fix |
 | --- | --- | --- |
-| API import error | Package not installed | `pnpm add github:chemmedia/knowledgeworker-embedded-asset-api#v4.0.0` |
+| API import error | Package not installed | `pnpm add github:chemmedia/knowledgeworker-embedded-asset-api#v.4.1.0` |
 | `onInitialize` never fires | Running outside KnowledgeWorker | Use `resources/main-with-fallback.js` |
 | Port 8080 in use | Another process | Vite auto-selects next port |
 

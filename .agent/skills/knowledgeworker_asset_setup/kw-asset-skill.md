@@ -12,7 +12,7 @@ description: Create a production-ready KnowledgeWorker HTML5 embedded learning a
 > 1. Check the latest tag at `https://github.com/chemmedia/knowledgeworker-embedded-asset-api/tags` using `read_url_content` or a browser tool.
 > 2. Compare the latest tag with the "Verified" version below.
 > 3. If a newer version exists (e.g., `v5.0.0`), you **MUST** automatically update this `SKILL.md` file to reflect the new version in the "Verified" note below. Do this BEFORE proceeding with any other steps.
-> 4. **Verified for API v4.x and UI v3.x** (Last check: 2026-02-08)
+> 4. **Verified for API v4.1.0 and UI v3.x** (Last check: 2026-07-22)
 
 Reference document for KnowledgeWorker HTML5 embedded learning assets.
 
@@ -154,6 +154,6 @@ The API package includes TypeScript definitions.
 
 | Issue                    | Cause                           | Fix                                                                   |
 | ------------------------ | ------------------------------- | --------------------------------------------------------------------- |
-| API import error         | Package not installed           | `pnpm add github:chemmedia/knowledgeworker-embedded-asset-api#v4.0.0` |
+| API import error         | Package not installed           | `pnpm add github:chemmedia/knowledgeworker-embedded-asset-api#v.4.1.0` |
 | onInitialize never fires | Running outside KnowledgeWorker | Use `resources/main-with-fallback.js` pattern                         |
 | Port 8080 in use         | Another process using port      | Vite auto-selects next port                                           |
