@@ -23,7 +23,7 @@ mkdir my-new-asset
 cd my-new-asset
 
 # 2. Pull the playbook (clone this repo)
-git clone https://code.chemmedia.de/scm/ea/kw-asset-playbook.git .
+git clone https://github.com/robertkotsch/kw-asset-skill.git .
 
 # 3. Clean up (remove .git history to start fresh)
 rm -rf .git
