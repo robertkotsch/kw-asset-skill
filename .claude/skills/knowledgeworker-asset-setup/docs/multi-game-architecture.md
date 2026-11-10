@@ -28,12 +28,18 @@ pnpm init
 Install the dependencies (drop d3/gsap/pixi.js if a given game doesn't need them):
 ```bash
 # Core API
-pnpm add github:chemmedia/knowledgeworker-embedded-asset-api#v.4.1.0
-pnpm add d3 gsap pixi.js resize-observer-polyfill
+pnpm add -E knowledgeworker-embedded-asset-api@4.1.0
+pnpm add -E d3@7.9.2 gsap@3.15.1 pixi.js@8.22.0 resize-observer-polyfill@1.5.1
 
 # Dev Dependencies
-pnpm add -D vite typescript sass cross-env vite-plugin-zip-pack vite-plugin-html @types/node
+pnpm add -DE @types/node@26.6.6 cross-env@10.1.0 sass@1.108.1 typescript@7.0.2 vite@8.3.7 vite-plugin-html@3.2.2 vite-plugin-zip-pack@1.2.4
 ```
+
+Run `pnpm audit --audit-level=low` and `pnpm outdated`; follow the mandatory
+dependency review in [operations](operations.md#mandatory-dependency-review-at-every-setup-or-refresh).
+Apply reviewed updates with `pnpm update`, rerun the audit, and test the actual
+multi-game build/ZIPs in a browser. Commit package.json and pnpm-lock.yaml.
+The optional graph was audited but this multi-game application was not functionally validated.
 
 Update `package.json` with one standalone build script per game (here: 5 games):
 ```json

@@ -21,28 +21,21 @@ Question?" Default to `medium`. This selects which `main.js` template to copy in
 
 Templates live in `.claude/skills/knowledgeworker-asset-setup/resources/`. **Copy each file
 verbatim** into the target path. Obey the skill's hard rules (no hardcoded colors,
-`base:"./"`, pinned API tag).
+`base:"./"`, pinned prebuilt npm API version).
 
-1. Create `package.json`:
-   ```json
-   {
-     "name": "my-kw-asset",
-     "version": "0.0.0",
-     "private": true,
-     "type": "module",
-     "scripts": {
-       "dev": "vite",
-       "build": "vite build && node build-zip.js",
-       "preview": "vite preview"
-     }
-   }
-   ```
-2. Install deps, then commit the lockfile:
+1. Copy the baseline dependency files:
+
+   Copy `resources/package.json`, `resources/pnpm-lock.yaml` and
+   `resources/pnpm-workspace.yaml` into the NEW project's root. Do not overwrite
+   existing user files. The baseline pins API 4.1.0, Vite 8.3.7 and yazl 3.3.1,
+   including the audited transitive graph. Use Node.js 20.19+ or 22.12+ and pnpm 10.23.0.
+   The ZIP template requires yazl; replace older Archiver-based templates too.
+
    ```bash
-   pnpm add -D vite archiver
-   pnpm add github:chemmedia/knowledgeworker-embedded-asset-api#v.4.1.0
+   pnpm install --frozen-lockfile
    ```
-3. `pnpm audit` — review before proceeding.
+2. Follow the mandatory dependency review in `docs/operations.md`: run `pnpm audit --audit-level=low` and `pnpm outdated`; apply reviewed updates with `pnpm update`, then repeat audit, build, ZIP and browser checks.
+3. Resolve or report every audit, deprecation, peer or runtime issue before declaring success.
 4. Copy `resources/index.html` → `index.html` (set `lang` to the asset's language).
 5. Copy `resources/style.css` → `src/style.css` (tokens only, no color fallbacks).
 6. Copy the template for the chosen type → `src/main.js`:

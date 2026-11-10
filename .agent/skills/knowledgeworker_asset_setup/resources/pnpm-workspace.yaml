@@ -1,0 +1,3 @@
+# Only esbuild needs an installation script; the prebuilt API needs none.
+onlyBuiltDependencies:
+  - esbuild

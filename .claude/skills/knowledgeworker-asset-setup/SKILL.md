@@ -11,8 +11,16 @@ scaffold a new asset, run the `/kw-asset-setup` command — it orchestrates the 
 > [!IMPORTANT]
 > **MANDATORY PRE-CHECK.** Before scaffolding, verify the API version:
 > 1. Read the latest tag at `https://github.com/chemmedia/knowledgeworker-embedded-asset-api/tags`.
-> 2. Compare with the verified version: **API v4.1.0 / UI v3.x** (last check: 2026-07-22).
+> 2. Compare with the verified version: **API v4.1.0 / UI v3.x** (last check: 2026-11-10).
 > 3. If a newer major exists, update the version here and in the command before proceeding.
+
+## Required security check
+
+At every setup or dependency refresh, run `pnpm audit --audit-level=low` and
+`pnpm outdated`, apply reviewed fixes with `pnpm update`, then rerun audit,
+build, ZIP and browser checks. Follow the complete mandatory dependency review
+in [operations](docs/operations.md#mandatory-dependency-review-at-every-setup-or-refresh).
+Report vulnerabilities, deprecations, peer/runtime conflicts and unresolved issues.
 
 ## Stack (non-negotiable)
 
@@ -21,7 +29,7 @@ scaffold a new asset, run the `/kw-asset-setup` command — it orchestrates the 
 | **pnpm** | NOT npm or yarn |
 | **Vite** | NOT Webpack |
 | **Vanilla JS** | no framework by default |
-| **knowledgeworker-embedded-asset-api** | LMS layer, installed from GitHub, pinned |
+| **knowledgeworker-embedded-asset-api** | LMS layer, prebuilt registry release installed with pnpm, pinned |
 
 ## Decide the asset type first
 
@@ -40,7 +48,7 @@ or Advanced Question?"* **Default to `medium`.** Then copy the matching template
 - **NO HARDCODED COLORS.** No Hex/RGB/HSL/named colors, no CSS-variable fallbacks. Use only
   `var(--kw-*)` tokens injected at runtime. Sole exception: a brand-critical element the user explicitly requests.
 - **`base: "./"`** in `vite.config.js` — absolute base breaks embedded loading.
-- **Pin the API tag** (`#v.4.1.0`, or commit `#2cd2429…` if the mistyped tag is ever fixed); commit `pnpm-lock.yaml`. Never install from a floating ref.
+- **Pin the prebuilt npm API release** (`pnpm add -E knowledgeworker-embedded-asset-api@4.1.0`); commit `pnpm-lock.yaml`. Avoid Git installs, which run upstream build tooling with known advisories. See `docs/operations.md` for verification details.
 - **Never** run `pnpm create vite . --overwrite` in a non-empty dir — it deletes files.
 - **Copy templates verbatim** from `resources/`. Do not retype or regenerate them.
 - **Question types:** never show feedback/solution or lock the UI yourself — wait for the LMS callback.
@@ -101,7 +109,7 @@ knowledgeworker-asset-setup/
 
 | Issue | Cause | Fix |
 | --- | --- | --- |
-| API import error | Package not installed | `pnpm add github:chemmedia/knowledgeworker-embedded-asset-api#v.4.1.0` |
+| API import error | Package not installed | `pnpm add -E knowledgeworker-embedded-asset-api@4.1.0` |
 | `onInitialize` never fires | Running outside KnowledgeWorker | Use `resources/main-with-fallback.js` |
 | Port 8080 in use | Another process | Vite auto-selects next port |
 

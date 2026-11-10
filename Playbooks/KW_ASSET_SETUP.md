@@ -7,7 +7,7 @@
 > 1. Check the latest tag at `https://github.com/chemmedia/knowledgeworker-embedded-asset-api/tags` using `read_url_content` or a browser tool.
 > 2. Compare the latest tag with the "Verified" version below.
 > 3. If a newer version exists (e.g., `v5.0.0`), you **MUST** update this document and the `Verified` note before proceeding.
-> 4. **Verified for API v4.1.0 and UI v3.x** (Last check: 2026-07-22)
+> 4. **Verified for API v4.1.0 and UI v3.x** (Last check: 2026-11-10)
 
 Lean playbook for the **manual setup path** (README "Option B"). It carries only the
 decisions and rules that make a build correct; all code lives in copyable template
@@ -65,13 +65,11 @@ capability matrix, see **[KW_ASSET_TYPES.md](./KW_ASSET_TYPES.md)**.
 > dynamic subdirectories, so the default absolute base (`/`) breaks asset loading.
 
 > [!IMPORTANT]
-> **Pin the API version.** Always install with `#<tag>` (e.g. `#v.4.1.0`). A floating
-> reference silently tracks `HEAD` (supply-chain risk). Commit `pnpm-lock.yaml` afterward.
-
-> [!NOTE]
-> **Upstream tag quirk.** 4.1.0 is tagged `v.4.1.0` (stray dot after `v`), not `v4.1.0` —
-> the pin above uses the real tag name. For a pin that survives an upstream re-tag, use the
-> commit SHA instead: `#2cd242908418902f4534ab3d0356df5da2a7c69f`.
+> **Pin the prebuilt API version.** Use `pnpm add -E knowledgeworker-embedded-asset-api@4.1.0`
+> and commit `pnpm-lock.yaml`. Do not install from Git: it runs upstream's
+> build toolchain with known audit findings. The npm release's compiled files
+> were verified identical to GitHub commit `2cd242908418902f4534ab3d0356df5da2a7c69f`
+> (tag `v.4.1.0`). See `DEPENDENCY_SECURITY.md` for evidence and scope.
 
 > [!WARNING]
 > **Never run `pnpm create vite . --overwrite`** in a non-empty directory — it deletes
@@ -83,26 +81,19 @@ capability matrix, see **[KW_ASSET_TYPES.md](./KW_ASSET_TYPES.md)**.
 
 Each step copies a file from `resources/` or runs a command. No code is reproduced here.
 
-1. **`package.json`** — create directly (no Vite scaffold; every generated file is replaced anyway):
-   ```json
-   {
-     "name": "my-kw-asset",
-     "version": "0.0.0",
-     "private": true,
-     "type": "module",
-     "scripts": {
-       "dev": "vite",
-       "build": "vite build && node build-zip.js",
-       "preview": "vite preview"
-     }
-   }
-   ```
-2. **Install deps** — then commit `pnpm-lock.yaml`:
+1. **Dependency baseline** — copy the tested files:
+
+   Copy `resources/package.json`, `resources/pnpm-lock.yaml` and
+   `resources/pnpm-workspace.yaml` into the NEW project's root. Do not overwrite
+   existing user files. The baseline pins API 4.1.0, Vite 8.3.7 and yazl 3.3.1,
+   including the audited transitive graph. Use Node.js 20.19+ or 22.12+ and pnpm 10.23.0.
+   The ZIP template requires yazl; replace older Archiver-based templates too.
+
    ```bash
-   pnpm add -D vite archiver
-   pnpm add github:chemmedia/knowledgeworker-embedded-asset-api#v.4.1.0
+   pnpm install --frozen-lockfile
    ```
-3. **Audit** — `pnpm audit` (CI: `pnpm audit --audit-level=high`).
+2. **Required dependency review** — run `pnpm audit --audit-level=low` and `pnpm outdated` on every setup. Apply reviewed fixes using `pnpm update <package>@<reviewed-version> --save-exact`; rerun audit, build, ZIP and browser checks after each update.
+3. **Report** — resolve or report vulnerabilities, deprecated packages, peer/runtime conflicts and blocked checks. Follow the full mandatory policy in `docs/operations.md` in the selected skill package.
 4. **`index.html`** — copy `resources/index.html` (set `lang` to your asset's language).
 5. **`src/style.css`** — copy `resources/style.css` (tokens only — see Hard rules).
 6. **`src/main.js`** — copy the template for your asset type (see [table above](#asset-type--decide-first)). For local dev outside the LMS, use `resources/main-with-fallback.js`.

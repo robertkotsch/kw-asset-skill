@@ -1,0 +1,23 @@
+{
+  "name": "my-kw-asset",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "packageManager": "pnpm@10.23.0",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build && node build-zip.js",
+    "preview": "vite preview",
+    "audit": "pnpm audit --audit-level=low"
+  },
+  "dependencies": {
+    "knowledgeworker-embedded-asset-api": "4.1.0"
+  },
+  "devDependencies": {
+    "vite": "8.3.7",
+    "yazl": "3.3.1"
+  },
+  "engines": {
+    "node": "^20.19.0 || >=22.12.0"
+  }
+}

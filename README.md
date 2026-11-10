@@ -9,6 +9,13 @@
 **Version**: 1.0.0
 **Stack**: `Vite` + `Vanilla JS` + `Knowledgeworker API`
 
+Dependency baseline: Vite **8.3.7**, **yazl 3.3.1** for ZIP packaging, and API **4.1.0**
+pinned to its verified npm release. See [dependency security review](./DEPENDENCY_SECURITY.md)
+for audit results, validation, and unresolved upstream build-tool advisories.
+Agents must run `pnpm audit --audit-level=low` and `pnpm outdated` at every setup,
+apply reviewed fixes with `pnpm update`, and revalidate the build, ZIP and browser behavior.
+Both skill packages include the tested dependency manifest and lockfile.
+
 ## 🚀 Getting Started
 
 This repository is your starting point for building production-ready Knowledgeworker HTML5 embedded assets.

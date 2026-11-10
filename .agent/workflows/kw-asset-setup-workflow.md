@@ -50,49 +50,26 @@ Step 5 copies the matching `main.js` template from `resources/` for the chosen t
 > **Do NOT use `pnpm create vite . --overwrite`** in a non-empty directory.
 > The `--overwrite` flag deletes all existing files (including reference docs).
 
-Create `package.json` directly — no Vite scaffold needed since every generated file
-is replaced in subsequent steps anyway:
-
-```json
-{
-  "name": "my-kw-asset",
-  "version": "0.0.0",
-  "private": true,
-  "type": "module",
-  "scripts": {
-    "dev": "vite",
-    "build": "vite build && node build-zip.js",
-    "preview": "vite preview"
-  }
-}
-```
-
-Then install all dependencies:
+Copy `resources/package.json`, `resources/pnpm-lock.yaml` and
+`resources/pnpm-workspace.yaml` into the NEW project's root. Do not overwrite
+existing user files. The baseline pins API 4.1.0, Vite 8.3.7 and yazl 3.3.1,
+including the audited transitive graph. Use Node.js 20.19+ or 22.12+ and pnpm 10.23.0.
+The ZIP template requires yazl; replace older Archiver-based templates too.
 
 ```bash
-pnpm add -D vite archiver
-pnpm add github:chemmedia/knowledgeworker-embedded-asset-api#v.4.1.0
+pnpm install --frozen-lockfile
 ```
-
-> [!IMPORTANT]
-> **Pin to the verified tag** — always use `#<tag>` (e.g., `#v.4.1.0`) when installing from GitHub.
-> A floating reference (no `#ref`) silently tracks `HEAD` and is vulnerable to supply chain attacks.
-> After installing, **commit `pnpm-lock.yaml`** to lock the resolved SHA for all future installs.
-
-> [!NOTE]
-> **Upstream tag quirk.** 4.1.0 is tagged `v.4.1.0` (stray dot after `v`), not `v4.1.0`.
-> If chemmedia later corrects the tag, pin the commit instead:
-> `#2cd242908418902f4534ab3d0356df5da2a7c69f`.
 
 // turbo
 
-### 2. Audit dependencies
+### 2. Mandatory dependency review
 
-```bash
-pnpm audit
-```
-
-Review any reported vulnerabilities before proceeding. For CI pipelines, use `pnpm audit --audit-level=high` to fail on high-severity issues.
+Run `pnpm audit --audit-level=low` and `pnpm outdated` on EVERY setup/refresh.
+Follow `docs/operations.md` in the skill package for the full mandatory policy.
+Use `pnpm update` for reviewed upgrades (exact pins need an explicit reviewed
+version); rerun audit, build, ZIP and browser checks after each update.
+Inspect deprecation warnings, peer/Node conflicts and lifecycle scripts too.
+Report unresolved issues; do not suppress findings or declare a failing audit clean.
 
 // turbo
 
